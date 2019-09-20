@@ -1,4 +1,5 @@
-@CHARSET "UTF-8";/*
+@CHARSET "UTF-8";
+/*
 /* Created by Filipe Pina
  * Specific styles of signin, register, component
  */
@@ -10,35 +11,36 @@
     overflow: hidden !important;
     -webkit-overflow-scrolling: touch;
 }
-body, html{
-     height: 100%;
- 	background-repeat: no-repeat;
- 	background:url(https://i.ytimg.com/vi/4kfXjatgeEU/maxresdefault.jpg);
- 	font-family: 'Oxygen', sans-serif;
-	    background-size: cover;
+
+body, html {
+    height: 100%;
+    background-repeat: no-repeat;
+    /*background: url(https://i.ytimg.com/vi/4kfXjatgeEU/maxresdefault.jpg);*/
+    font-family: 'Oxygen', sans-serif;
+    background-size: cover;
 }
 
-.main{
- 	margin:50px 15px;
+.main {
+    margin: 50px 15px;
 }
 
-h1.title { 
-	font-size: 50px;
-	font-family: 'Passion One', cursive; 
-	font-weight: 400; 
+h1.title {
+    font-size: 50px;
+    font-family: 'Passion One', cursive;
+    font-weight: 400;
 }
 
-hr{
-	width: 10%;
-	color: #fff;
+hr {
+    width: 10%;
+    color: #fff;
 }
 
-.form-group{
-	margin-bottom: 15px;
+.form-group {
+    margin-bottom: 15px;
 }
 
-label{
-	margin-bottom: 15px;
+label {
+    margin-bottom: 15px;
 }
 
 input,
@@ -47,8 +49,8 @@ input::-webkit-input-placeholder {
     padding-top: 3px;
 }
 
-.main-login{
- 	background-color: #fff;
+.main-login {
+    background-color: #fff;
     /* shadows and rounded borders */
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
@@ -58,15 +60,18 @@ input::-webkit-input-placeholder {
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 
 }
+
 .form-control {
-    height: auto!important;
-padding: 8px 12px !important;
+    height: auto !important;
+    padding: 8px 12px !important;
 }
+
 .input-group {
-    -webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.21)!important;
-    -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.21)!important;
-    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.21)!important;
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.21) !important;
+    -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.21) !important;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.21) !important;
 }
+
 #button {
     border: 1px solid #ccc;
     margin-top: 28px;
@@ -89,24 +94,25 @@ padding: 8px 12px !important;
     background: linear-gradient(top, #f5f5f5 0%, #eeeeee 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5f5f5', endColorstr='#eeeeee', GradientType=0);
 }
-.main-center{
- 	margin-top: 30px;
- 	margin: 0 auto;
- 	max-width: 400px;
-    padding: 10px 40px;
-	background:#009edf;
-	    color: #FFF;
-    text-shadow: none;
-	-webkit-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.31);
--moz-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.31);
-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.31);
 
+.main-center {
+    margin-top: 30px;
+    margin: 0 auto;
+    max-width: 400px;
+    padding: 10px 40px;
+    background: #009edf;
+    color: #FFF;
+    text-shadow: none;
+    -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31);
+    -moz-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31);
+    box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31);
 }
+
 span.input-group-addon i {
     color: #009edf;
     font-size: 17px;
 }
 
-.login-button{
-	margin-top: 5px;
+.login-button {
+    margin-top: 5px;
 }
