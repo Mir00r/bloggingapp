@@ -53,31 +53,9 @@ public class LoginController {
         return modelAndView;
     }
 
-    /*@RequestMapping(value = "/registration", method = RequestMethod.POST)
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
-        User userExists = userService.findUserByEmail(user.getEmail());
-        if (userExists != null) {
-            bindingResult
-                    .rejectValue("email", "error.user",
-                            "Email has already been taken"
-                                    + " Check your details!");
-        }
-        if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("registration");
-        } else {
-            userService.saveUser(user);
-            modelAndView.addObject("successMessage", "Registration Successful.");
-            modelAndView.addObject("user", new User());
-            modelAndView.setViewName("registration");
-        }
-        return modelAndView;
-    }*/
-
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public ModelAndView signup(@ModelAttribute("model") User user, BindingResult bindingResult, Model model)  {
-        ModelAndView modelAndView = new ModelAndView();
-
         userValidator.validate(user, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -109,19 +87,18 @@ public class LoginController {
         List<User> users2 = new ArrayList<>();
         users = userService.findUserbyRole(role);
         users2 = userService.findUserbyRole(role2);
-        /*List<Task> tasks = new ArrayList<>();
-        tasks = taskService.findAll();
-        int taskCount = tasks.size();
+        //List<Task> tasks = new ArrayList<>();
+        //tasks = taskService.findAll();
+        //int taskCount = tasks.size();
         int adminCount = users.size();
         int userCount = users2.size();
         modelAndView.addObject("adminCount", adminCount);//Authentication for NavBar
         modelAndView.addObject("userCount", userCount);//Authentication for NavBar
-        modelAndView.addObject("taskCount", taskCount);//Authentication for NavBar*/
+        //modelAndView.addObject("taskCount", taskCount);//Authentication for NavBar*/
         //-----------------------------------------
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User loginUser = userService.findUserByEmail(auth.getName());
-        //User loginUser = new User();
-        modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.getName(), Constant.ROLE_TYPE.blogger.getRoleName());//Authentication for NavBar
+        modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.getName(), loginUser.getRole().getName());//Authentication for NavBar
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.auth.getName(), loginUser);
         //List<UserTask> userTasks = new ArrayList<>();
         //userTasks = userTaskService.findByUser(loginUser);

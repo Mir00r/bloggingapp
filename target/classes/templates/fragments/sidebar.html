@@ -13,7 +13,7 @@
                 <img src="/images/avatar5.png" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p><span class="hidden-xs" ></span></p>
+                <p><span class="hidden-xs" th:utext="${auth.name}"></span></p>
             </div>
         </div>
         <!-- search form -->
@@ -37,14 +37,14 @@
             </span>
                 </a>
             </li>
-            <li  class="treeview">
-                <a th:href="@{/myprofile/mytasks(id=${1})}">
+            <li th:if="${control != 'ADMIN'}" class="treeview">
+                <a th:href="@{/myprofile/mytasks(id=${auth.id})}">
                     <i class="fa fa-file-text text-green"></i> <span>My Tasks</span>
                     <span class="pull-right-container">
             </span>
                 </a>
             </li>
-            <li  class="treeview">
+            <li th:if="${control != 'ADMIN'}" class="treeview">
                 <a th:href="@{/myprofile/inf}">
                     <i class="fa fa-gears text-blue"></i> <span>Profile Settings</span>
                     <span class="pull-right-container">

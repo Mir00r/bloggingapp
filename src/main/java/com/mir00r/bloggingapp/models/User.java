@@ -1,8 +1,5 @@
 package com.mir00r.bloggingapp.models;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,23 +22,11 @@ public class User extends BaseModel implements UserDetails {
     private String username;
     private String avatar;
 
-    //@Column(name = "email")
-    //@Email(message = "*Please enter a valid email address!")
-    //@NotEmpty(message = "*Please provide an email! This field can not be empty!")
     private String email;
 
-    //@Column(name = "password")
-    //@Length(min = 3, message = "*Your password can not be less than 3 characters!")
-    //@NotEmpty(message = "*Please provide your password! This field can not be empty!")
-    //@org.springframework.data.annotation.Transient
-
     private String password;
-
-    //@Column(name = "name")
-    //@NotEmpty(message = "*Please provide your name! This field can not be empty!")
     private String name;
 
-    //@Column(name = "active")
     private int active;
 
     private boolean enabled;
