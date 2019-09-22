@@ -37,7 +37,7 @@
 
                 <div class="panel-body">
                     <form autocomplete="off" action="#" th:action="@{/registration}"
-                          method="post" class="form-horizontal"
+                          th:object="${user}"  method="post" class="form-horizontal"
                           role="form">
                         <fieldset>
                             <!-- Text input-->
@@ -45,12 +45,27 @@
                                 <div class="col-sm-12 col-md-10  col-md-offset-1 ">
 
                                     <div class="form-group">
+                                        <label for="username" class="cols-sm-2 control-label"></label>
+                                        <div class="cols-sm-10">
+                                            <div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user fa"
+                                                                       aria-hidden="true"></i></span> <input type="text"
+                                                                                                             th:field="*{username}"
+                                                                                                             placeholder="User Name"
+                                                                                                             class="form-control"/>
+                                            </div>
+                                            <!--                           &lt;!&ndash; <label th:if="${#fields.hasErrors('name')}" th:errors=""-->
+                                            <!--                                   class="validation-message"></label>&ndash;&gt;-->
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
                                         <label for="name" class="cols-sm-2 control-label"></label>
                                         <div class="cols-sm-10">
                                             <div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-user fa"
                                                                        aria-hidden="true"></i></span> <input type="text"
-
+                                                                                                             th:field="*{name}"
                                                                                                              placeholder="Name"
                                                                                                              class="form-control"/>
                                             </div>
@@ -67,7 +82,7 @@
                                                         <span class="input-group-addon"><i
                                                                 class="fa fa-envelope fa" aria-hidden="true"></i></span>
                                                 <input
-                                                        type="text" placeholder="Email"
+                                                        type="text" placeholder="Email" th:field="*{email}"
                                                         class="form-control"/>
                                             </div>
                                             <!-- &lt;!&ndash;<label th:if="${#fields.hasErrors('email')}"
@@ -82,7 +97,7 @@
                                                         <span class="input-group-addon"><i
                                                                 class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
                                                 <input
-                                                        type="password" placeholder="Password"
+                                                        type="password" placeholder="Password" th:field="*{password}"
                                                         class="form-control"/>
                                             </div>
                                             <!--&lt;!&ndash;<label th:if="${#fields.hasErrors('password')}"

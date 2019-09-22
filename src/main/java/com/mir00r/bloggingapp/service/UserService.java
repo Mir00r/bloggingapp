@@ -55,9 +55,12 @@ public class UserService {
 
 
     public User findUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+        return this.userRepository.findByEmail(email);
     }
 
+    public User findByUsername(String username) {
+        return this.userRepository.findByUsername(username);
+    }
 
     public void saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));

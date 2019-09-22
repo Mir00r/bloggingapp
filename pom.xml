@@ -61,6 +61,12 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>net.sourceforge.nekohtml</groupId>
+            <artifactId>nekohtml</artifactId>
+            <version>1.9.22</version><!--$NO-MVN-MAN-VER$ -->
+        </dependency>
     </dependencies>
 
     <build>

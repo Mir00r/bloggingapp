@@ -23,18 +23,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByEmail(String email);
 
     List<User> findByRole(Role role);
-
-    /*@Query(
-            nativeQuery = true,
-            value = "SELECT * FROM user a LEFT JOIN core_user_profile b ON b.user_id = a.id " +
-                    "WHERE a.username LIKE %:keywords% OR b.real_name LIKE %:keywords% OR b.email LIKE %:keywords% ORDER BY ?#{#pageable}",
-            countQuery = "SELECT count(*) FROM user a LEFT JOIN core_user_profile b ON b.user_id = a.id " +
-                    "WHERE a.username LIKE %:keywords% OR b.real_name LIKE %:keywords% OR b.email LIKE %:keywords%"
-    )
-    Page<User> search(@Param(value = "keywords") String keywords, Pageable pageable);
-
-    @Modifying
-    @Transactional
-    @Query(value = "DELETE FROM core_user_role WHERE user_id = :userId", nativeQuery = true)
-    void deleteRolesByUserId(@Param(value = "userId") long userId);*/
 }
