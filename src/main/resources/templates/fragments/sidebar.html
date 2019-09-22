@@ -39,19 +39,33 @@
             </li>
             <li th:if="${control != 'ADMIN'}" class="treeview">
                 <a th:href="@{/myprofile/mytasks(id=${auth.id})}">
-                    <i class="fa fa-file-text text-green"></i> <span>My Tasks</span>
+                    <i class="fa fa-file-text text-green"></i> <span>My Blog</span>
                     <span class="pull-right-container">
             </span>
                 </a>
             </li>
             <li th:if="${control != 'ADMIN'}" class="treeview">
+                <a th:href="@{/myprofile/mytasks(id=${auth.id})}">
+                    <i class="fa fa-plus text-green"></i> <span>New Blog</span>
+                    <span class="pull-right-container">
+            </span>
+                </a>
+            </li>
+            <li th:if="${control != 'ADMIN'}" class="treeview">
+                <a th:href="@{/myprofile/mytasks(id=${auth.id})}">
+                    <i class="fa fa-file-text text-blue"></i> <span>Other Blog</span>
+                    <span class="pull-right-container">
+            </span>
+                </a>
+            </li>
+            <li th:if="${control == 'ADMIN'}" class="treeview">
                 <a th:href="@{/myprofile/inf}">
                     <i class="fa fa-gears text-blue"></i> <span>Profile Settings</span>
                     <span class="pull-right-container">
             </span>
                 </a>
             </li>
-            <li class="treeview">
+            <li th:if="${control == 'ADMIN'}" class="treeview">
                 <a th:href="@{/users/all}">
                     <i class="fa fa-users text-green"></i>
                     <span>All Users</span>
@@ -72,31 +86,39 @@
                         All User Types</a></li>
                 </ul>
             </li>
-            <li  class="treeview">
+            <li th:if="${control == 'ADMIN'}" class="treeview">
+                <a th:href="@{/myprofile/mytasks(id=${auth.id})}">
+                    <i class="fa fa-plus text-green"></i> <span>All Blog</span>
+                    <span class="pull-right-container">
+            </span>
+                </a>
+            </li>
+
+            <li th:if="${control == 'ADMIN'}" class="treeview">
                 <a href="#">
                     <i class="fa fa-files-o text-purple"></i>
-                    <span>Tasks</span>
+                    <span>Blogs</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a th:href="@{/admin/tasks/new}"><i class="fa fa-plus"></i> New Task</a></li>
-                    <li><a th:href="@{/admin/tasks/all}"><i class="fa fa-file-text"></i> All Tasks</a></li>
+                    <li><a th:href="@{/admin/tasks/new}"><i class="fa fa-plus"></i> New Blog</a></li>
+                    <li><a th:href="@{/admin/tasks/all}"><i class="fa fa-file-text"></i> All Blog</a></li>
                 </ul>
             </li>
-            <li  class="treeview">
+            <li th:if="${control == 'ADMIN'}" class="treeview">
                 <a href="#">
                     <i class="fa fa-laptop text-red "></i>
-                    <span>User-Task Management</span>
+                    <span>User-Blog Management</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right "></i>
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a th:href="@{/admin/user-task/new}"><i class="fa fa-laptop"></i> Task Assignment</a>
+                    <li><a th:href="@{/admin/user-task/new}"><i class="fa fa-laptop"></i> Blog Assignment</a>
                     </li>
-                    <li><a th:href="@{/admin/user-task/all}"><i class="fa fa-files-o"></i> User Tasks</a></li>
+                    <li><a th:href="@{/admin/user-task/all}"><i class="fa fa-files-o"></i> User Blogs</a></li>
                 </ul>
             </li>
         </ul>
