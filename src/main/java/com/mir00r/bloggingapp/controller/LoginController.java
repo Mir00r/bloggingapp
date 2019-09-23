@@ -97,7 +97,8 @@ public class LoginController {
         //modelAndView.addObject("taskCount", taskCount);//Authentication for NavBar*/
         //-----------------------------------------
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User loginUser = userService.findUserByEmail(auth.getName());
+        //User loginUser = userService.findUserByEmail(auth.getName());
+        User loginUser = userService.findByUsername(auth.getName());
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.getName(), loginUser.getRole().getName());//Authentication for NavBar
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.auth.getName(), loginUser);
         //List<UserTask> userTasks = new ArrayList<>();

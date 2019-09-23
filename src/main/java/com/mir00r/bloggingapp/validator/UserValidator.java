@@ -28,24 +28,14 @@ public class UserValidator implements Validator {
         User user = (User) o;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
-//        if (user.getUsername().length() < 6 || user.getUsername().length() > 32) {
-//            errors.rejectValue("username", "Size.userForm.username");
-//        }
+
         if (userService.findByUsername(user.getUsername()) != null) {
             errors.rejectValue("username", "error.user",
                     "User name has already been taken!");
         } else if (userService.findUserByEmail(user.getEmail()) != null) {
             errors.rejectValue("email", "error.user",
-                            "Email has already been taken");
+                            "Email has already been taken!");
         }
-
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
-//        if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
-//            errors.rejectValue("password", "Size.userForm.password");
-//        }
-
-//        if (!user.getPasswordConfirm().equals(user.getPassword())) {
-//            errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
-//        }
     }
 }

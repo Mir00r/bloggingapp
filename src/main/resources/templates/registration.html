@@ -51,7 +51,8 @@
 									<span class="input-group-addon"><i class="fa fa-user fa"
                                                                        aria-hidden="true"></i></span> <input type="text"
                                                                                                              th:field="*{username}"
-                                                                                                             placeholder="User Name"
+                                                                                                             required
+                                                                                                             th:placeholder="#{username.txt}"
                                                                                                              class="form-control"/>
                                             </div>
                                             <label th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
@@ -66,7 +67,8 @@
 									<span class="input-group-addon"><i class="fa fa-user fa"
                                                                        aria-hidden="true"></i></span> <input type="text"
                                                                                                              th:field="*{name}"
-                                                                                                             placeholder="Name"
+                                                                                                             required
+                                                                                                             th:placeholder="#{name.txt}"
                                                                                                              class="form-control"/>
                                             </div>
                                             <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
@@ -82,7 +84,7 @@
                                                         <span class="input-group-addon"><i
                                                                 class="fa fa-envelope fa" aria-hidden="true"></i></span>
                                                 <input
-                                                        type="text" placeholder="Email" th:field="*{email}"
+                                                        type="text" th:placeholder="#{email.txt}" th:field="*{email}"
                                                         class="form-control"/>
                                             </div>
                                             <label th:if="${#fields.hasErrors('email')}"
@@ -97,7 +99,7 @@
                                                         <span class="input-group-addon"><i
                                                                 class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
                                                 <input
-                                                        type="password" placeholder="Password" th:field="*{password}"
+                                                        type="password" th:placeholder="#{password.txt}" th:field="*{password}"
                                                         class="form-control"/>
                                             </div>
                                             <label th:if="${#fields.hasErrors('password')}"
