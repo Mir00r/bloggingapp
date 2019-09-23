@@ -7,6 +7,7 @@ package com.mir00r.bloggingapp.utils;
 public class Constant {
     public static final String USERS = "users";
     public static final String ROLES = "roles";
+    public static final String MODE = "mode";
 
     public enum ATTRIBUTE_NAME {
         rule(1, "rule"), auth(2, "auth"), control(3, "control");
@@ -43,6 +44,26 @@ public class Constant {
 
         public String getRoleName() {
             return roleName;
+        }
+    }
+
+    public enum ACTION_MODE {
+        newMode(1, "MODE_NEW"), allMode(2, "MODE_ALL"),
+        updateMode(3, "MODE_UPDATE"), infoMode(4, "MODE_INF");
+        private final long Id;
+        private final String Name;
+
+        ACTION_MODE(long id, String name) {
+            Id = id;
+            Name = name;
+        }
+
+        public long getId() {
+            return Id;
+        }
+
+        public String getName() {
+            return Name;
         }
     }
 }
