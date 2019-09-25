@@ -8,6 +8,7 @@ public class Constant {
     public static final String USERS = "users";
     public static final String ROLES = "roles";
     public static final String MODE = "mode";
+    public static final String BLOG = "blogType";
 
     public enum ATTRIBUTE_NAME {
         rule(1, "rule"), auth(2, "auth"), control(3, "control");
@@ -69,7 +70,7 @@ public class Constant {
     }
 
     public enum BLOG_TYPE {
-        mine(1, "mine"), other(2, "other");
+        mine(1, "mine"), other(2, "other"), all(3, "all");
         private final long Id;
         private final String name;
 

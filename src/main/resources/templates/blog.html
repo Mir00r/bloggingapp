@@ -61,10 +61,11 @@
                                         <tr>
                                             <th>Title</th>
                                             <th>Description</th>
-                                            <th>Date-Created</th>
+                                            <th th:if="${blogType == 'other'} or ${blogType == 'all'}">User Name</th>
                                             <th>Status</th>
-                                            <th></th>
-                                            <th></th>
+                                            <th>Date-Created</th>
+                                            <th th:if="${blogType == 'mine'}"></th>
+                                            <th th:if="${blogType == 'mine'} or ${blogType == 'all'}"></th>
                                             <th></th>
                                         </tr>
                                         </thead>
@@ -72,12 +73,14 @@
                                         <tr th:each="blog : ${blogs}">
                                             <td th:text="${blog.title}"></td>
                                             <td th:text="${blog.description}"></td>
-                                            <td th:text="${blog.createDate}"></td>
+                                            <td th:if="${blogType == 'other'} or ${blogType == 'all'}" th:text="${blog.user.username}"></td>
                                             <td th:if="${blog.blogStatus == 0}" th:text="#{pending.txt}"></td>
                                             <td th:if="${blog.blogStatus == 1}" th:text="#{accepted.txt}"></td>
-                                            <td><a th:href="@{/blogger/blogs/update(id=${blog.id})}"><span
+                                            <td th:text="${blog.createDate}"></td>
+
+                                            <td th:if="${blogType == 'mine'}"><a th:href="@{/blogger/blogs/update(id=${blog.id})}"><span
                                                     class="glyphicon glyphicon-pencil"></span> EDIT</a></td>
-                                            <td><a th:href="@{/blogger/blogs/delete(id=${blog.id})}"><span
+                                            <td th:if="${blogType == 'mine'} or ${blogType == 'all'}"><a th:href="@{/blogger/blogs/delete(id=${blog.id})}"><span
                                                     class="glyphicon glyphicon-trash"></span> DELETE</a></td>
                                             <td><a th:href="@{/blogger/blogs/details(id=${blog.id})}"><span
                                                     class="glyphicon glyphicon-file"></span> VIEW</a></td>
@@ -202,12 +205,14 @@
                                         <tr>
                                             <th>Title</th>
                                             <th>Description</th>
+                                            <th>User Name</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr th:object="${blog}">
                                             <td th:text="${blog.title}"></td>
                                             <td th:text="${blog.description}"></td>
+                                            <td th:text="${blog.user.username}"></td>
                                         </tr>
                                         </tbody>
                                     </table>

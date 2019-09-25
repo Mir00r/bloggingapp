@@ -61,6 +61,7 @@ public class BlogController {
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.auth.name(), getUser());
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.name(), getUser().getRole().getName());
         modelAndView.addObject(Constant.MODE, Constant.ACTION_MODE.allMode.getName());
+        modelAndView.addObject(Constant.BLOG, Constant.BLOG_TYPE.all.getName());
         modelAndView.setViewName("blog");
         return modelAndView;
     }
@@ -73,6 +74,7 @@ public class BlogController {
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.auth.name(), getUser());
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.name(), getUser().getRole().getName());
         modelAndView.addObject(Constant.MODE, Constant.ACTION_MODE.allMode.getName());
+        modelAndView.addObject(Constant.BLOG, Constant.BLOG_TYPE.other.getName());
         modelAndView.setViewName("blog");
         return modelAndView;
     }
@@ -85,6 +87,7 @@ public class BlogController {
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.auth.name(), getUser());
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.name(), getUser().getRole().getName());
         modelAndView.addObject(Constant.MODE, Constant.ACTION_MODE.allMode.getName());
+        modelAndView.addObject(Constant.BLOG, Constant.BLOG_TYPE.mine.getName());
         modelAndView.setViewName("blog");
         return modelAndView;
     }
