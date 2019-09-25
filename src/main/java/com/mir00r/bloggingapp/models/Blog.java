@@ -1,6 +1,7 @@
 package com.mir00r.bloggingapp.models;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -19,6 +20,9 @@ public class Blog extends BaseModel {
     private Long blogViews;
     private boolean enableComment;
     private boolean isDeleted;
+
+    @ManyToOne
+    private User user;
 
     public String getTitle() {
         return title;
@@ -74,5 +78,13 @@ public class Blog extends BaseModel {
 
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

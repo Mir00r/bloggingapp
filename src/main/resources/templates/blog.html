@@ -45,8 +45,7 @@
             <div th:if="${mode == 'MODE_ALL'}">
                 <section class="content-header">
                     <h1>
-                        BLOGS
-                        <small>blog tables</small>
+                        BLOG TABLES
                     </h1>
                 </section>
 
@@ -60,10 +59,10 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                         <tr>
-                                            <th>Blog Name</th>
-                                            <th>Blog Description</th>
-                                            <th>Blog Date-Created</th>
-                                            <th>Blog Status(Finished)</th>
+                                            <th>Title</th>
+                                            <th>Description</th>
+                                            <th>Date-Created</th>
+                                            <th>Status</th>
                                             <th></th>
                                             <th></th>
                                             <th></th>
@@ -74,13 +73,14 @@
                                             <td th:text="${blog.title}"></td>
                                             <td th:text="${blog.description}"></td>
                                             <td th:text="${blog.createDate}"></td>
-                                            <td th:text="${blog.blogStatus}"></td>
+                                            <td th:if="${blog.blogStatus == 0}" th:text="#{pending.txt}"></td>
+                                            <td th:if="${blog.blogStatus == 1}" th:text="#{accepted.txt}"></td>
                                             <td><a th:href="@{/blogger/blogs/update(id=${blog.id})}"><span
                                                     class="glyphicon glyphicon-pencil"></span> EDIT</a></td>
                                             <td><a th:href="@{/blogger/blogs/delete(id=${blog.id})}"><span
                                                     class="glyphicon glyphicon-trash"></span> DELETE</a></td>
                                             <td><a th:href="@{/blogger/blogs/details(id=${blog.id})}"><span
-                                                    class="glyphicon glyphicon-user"></span> VIEW</a></td>
+                                                    class="glyphicon glyphicon-file"></span> VIEW</a></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -102,7 +102,7 @@
                               role="form">
                             <fieldset>
                                 <!-- Form Name -->
-                                <legend>Edit Task</legend>
+                                <legend>Edit Blog</legend>
                                 <!-- Text input-->
                                 <input type="hidden" name="id" th:field="${blog.id}"/>
                                 <div class="form-group">
@@ -117,17 +117,6 @@
                                     <div class="col-md-4">
                                         <input type="text" th:field="${blog.description}"
                                                placeholder="Description" class="form-control"/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label">Blog Status (Finished)</label>
-                                    <div class="col-md-4 text-left">
-                                        <input type="radio" class="col-sm-1" name="finished"
-                                               value="true"/>
-                                        <div class="col-sm-2">Yes</div>
-                                        <input type="radio" class="col-md-1" name="finished"
-                                               value="false"/>
-                                        <div class="col-sm-2">No</div>
                                     </div>
                                 </div>
 
@@ -173,19 +162,6 @@
                                         <input type="text" th:field="${blog.description}"
                                                placeholder="Description" class="form-control"/>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label">Blog Status
-                                        (Finished)</label>
-                                    <div class="col-md-4 text-left">
-                                        <input type="radio" class="col-sm-1" name="finished"
-                                               value="true"/>
-                                        <div class="col-sm-2">Yes</div>
-                                        <input type="radio" class="col-sm-1" name="finished"
-                                               value="false" checked/>
-                                        <div class="col-sm-2">No</div>
-                                    </div>
-
                                 </div>
 
                                 <!-- Button (Double) -->

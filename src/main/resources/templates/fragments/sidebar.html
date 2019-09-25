@@ -38,7 +38,7 @@
                 </a>
             </li>
             <li th:if="${control != 'ADMIN'}" class="treeview">
-                <a th:href="@{/blogger/blogs/all}">
+                <a th:href="@{/blogger/blogs/myblogs}">
                     <i class="fa fa-file-text text-green"></i> <span>My Blog</span>
                     <span class="pull-right-container">
             </span>
@@ -52,7 +52,7 @@
                 </a>
             </li>
             <li th:if="${control != 'ADMIN'}" class="treeview">
-                <a th:href="@{/blogger/blogs/all}">
+                <a th:href="@{/blogger/blogs/other-blog}">
                     <i class="fa fa-file-text text-blue"></i> <span>Other Blog</span>
                     <span class="pull-right-container">
             </span>

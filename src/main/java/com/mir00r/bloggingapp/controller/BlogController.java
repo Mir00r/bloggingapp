@@ -47,7 +47,7 @@ public class BlogController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ModelAndView saveBlog(@Valid Blog blog, BindingResult bindingResult) {
         blogService.save(blog);
-        ModelAndView modelAndView = new ModelAndView("redirect:/blogger/blogs/all");
+        ModelAndView modelAndView = new ModelAndView("redirect:/blogger/blogs/myblogs");
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.auth.name(), getUser());
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.name(), getUser().getRole().getName());
         return modelAndView;
@@ -58,6 +58,30 @@ public class BlogController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.rule.name(), new Blog());
         modelAndView.addObject("blogs", blogService.findAll());
+        modelAndView.addObject(Constant.ATTRIBUTE_NAME.auth.name(), getUser());
+        modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.name(), getUser().getRole().getName());
+        modelAndView.addObject(Constant.MODE, Constant.ACTION_MODE.allMode.getName());
+        modelAndView.setViewName("blog");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/other-blog", method = RequestMethod.GET)
+    public ModelAndView allOtherBlogs() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject(Constant.ATTRIBUTE_NAME.rule.name(), new Blog());
+        modelAndView.addObject("blogs", blogService.findAllBlogByUser(getUser(), Constant.BLOG_TYPE.other.getId()));
+        modelAndView.addObject(Constant.ATTRIBUTE_NAME.auth.name(), getUser());
+        modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.name(), getUser().getRole().getName());
+        modelAndView.addObject(Constant.MODE, Constant.ACTION_MODE.allMode.getName());
+        modelAndView.setViewName("blog");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/myblogs", method = RequestMethod.GET)
+    public ModelAndView allMyBlogs() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject(Constant.ATTRIBUTE_NAME.rule.name(), new Blog());
+        modelAndView.addObject("blogs", blogService.findAllBlogByUser(getUser(), Constant.BLOG_TYPE.mine.getId()));
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.auth.name(), getUser());
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.name(), getUser().getRole().getName());
         modelAndView.addObject(Constant.MODE, Constant.ACTION_MODE.allMode.getName());

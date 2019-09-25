@@ -67,4 +67,23 @@ public class Constant {
             return Name;
         }
     }
+
+    public enum BLOG_TYPE {
+        mine(1, "mine"), other(2, "other");
+        private final long Id;
+        private final String name;
+
+        BLOG_TYPE(long id, String name) {
+            Id = id;
+            this.name = name;
+        }
+
+        public long getId() {
+            return Id;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
 }
