@@ -25,7 +25,7 @@ public class UserBlogService {
         return blogList;
     }
 
-    public UserBlog findUserTask(Long id) {
+    public UserBlog findUserBlog(Long id) {
         return userBlogRepository.getOne(id);
     }
 
@@ -37,7 +37,7 @@ public class UserBlogService {
         userBlogRepository.deleteById(id);
     }
 
-    public List<UserBlog> findByTask(Blog blog) {
+    public List<UserBlog> findByBlog(Blog blog) {
         return userBlogRepository.findByBlog(blog);
     }
 

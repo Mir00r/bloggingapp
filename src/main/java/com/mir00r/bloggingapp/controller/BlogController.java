@@ -92,7 +92,7 @@ public class BlogController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.rule.name(), new Blog());
         modelAndView.addObject("blog", blogService.findBlog(id));
-        modelAndView.addObject("userblogs", userBlogService.findByTask(blogService.findBlog(id)));
+        modelAndView.addObject("userblogs", userBlogService.findByBlog(blogService.findBlog(id)));
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.auth.name(), getUser());
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.name(), getUser().getRole().getName());
         modelAndView.addObject(Constant.MODE, Constant.ACTION_MODE.infoMode.getName());
@@ -100,9 +100,21 @@ public class BlogController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/details", method = RequestMethod.GET)
+    public ModelAndView blogDetails(@RequestParam Long id) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject(Constant.ATTRIBUTE_NAME.rule.name(), new Blog());
+        modelAndView.addObject("blog", blogService.findBlog(id));
+        modelAndView.addObject(Constant.ATTRIBUTE_NAME.auth.name(), getUser());
+        modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.name(), getUser().getRole().getName());
+        modelAndView.addObject(Constant.MODE, Constant.ACTION_MODE.detailsMode.getName());
+        modelAndView.setViewName("blog");
+        return modelAndView;
+    }
+
     private User getUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByEmail(auth.getName());
+        User user = userService.findByUsername(auth.getName());
         return user;
     }
 }

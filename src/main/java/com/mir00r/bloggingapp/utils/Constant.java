@@ -49,7 +49,8 @@ public class Constant {
 
     public enum ACTION_MODE {
         newMode(1, "MODE_NEW"), allMode(2, "MODE_ALL"),
-        updateMode(3, "MODE_UPDATE"), infoMode(4, "MODE_INF");
+        updateMode(3, "MODE_UPDATE"), infoMode(4, "MODE_INF"),
+        detailsMode(5, "MODE_DETAILS");
         private final long Id;
         private final String Name;
 
