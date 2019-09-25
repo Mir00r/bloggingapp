@@ -74,8 +74,8 @@
                                             <td th:text="${blog.title}"></td>
                                             <td th:text="${blog.description}"></td>
                                             <td th:if="${blogType == 'other'} or ${blogType == 'all'}" th:text="${blog.user.username}"></td>
-                                            <td th:if="${blog.blogStatus == 0}" th:text="#{pending.txt}"></td>
-                                            <td th:if="${blog.blogStatus == 1}" th:text="#{accepted.txt}"></td>
+                                            <td th:if="${blog.blogStatus == 0}" th:text="#{pending.txt}" style="color: gray; font-weight: bold"></td>
+                                            <td th:if="${blog.blogStatus == 1}" th:text="#{accepted.txt}" style="color: green; font-weight: bold"></td>
                                             <td th:text="${blog.createDate}"></td>
 
                                             <td th:if="${blogType == 'mine'}"><a th:href="@{/blogger/blogs/update(id=${blog.id})}"><span
