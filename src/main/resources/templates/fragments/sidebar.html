@@ -59,13 +59,6 @@
                 </a>
             </li>
             <li th:if="${control == 'ADMIN'}" class="treeview">
-                <a th:href="@{/myprofile/inf}">
-                    <i class="fa fa-gears text-blue"></i> <span>Profile Settings</span>
-                    <span class="pull-right-container">
-            </span>
-                </a>
-            </li>
-            <li th:if="${control == 'ADMIN'}" class="treeview">
                 <a th:href="@{/users/all}">
                     <i class="fa fa-users text-green"></i>
                     <span>All Users</span>
@@ -74,21 +67,21 @@
             <li th:if="${control == 'ADMIN'}" class="treeview">
                 <a href="#">
                     <i class="fa fa-odnoklassniki text-blue"></i>
-                    <span>User Types</span>
+                    <span>Users</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a th:href="@{/admin/roles/new}"><i
-                            class="fa fa-plus"></i> New User Type</a></li>
-                    <li><a th:href="@{/admin/roles/all}"><i class="fa fa-odnoklassniki"></i>
-                        All User Types</a></li>
+                    <li><a th:href="@{/users/all-pending}"><i
+                            class="fa fa-user"></i> Pending</a></li>
+                    <li><a th:href="@{/users/all-approved}"><i class="fa fa-odnoklassniki"></i>
+                        Approved</a></li>
                 </ul>
             </li>
             <li th:if="${control == 'ADMIN'}" class="treeview">
                 <a th:href="@{/blogger/blogs/all}">
-                    <i class="fa fa-plus text-green"></i> <span>All Blog</span>
+                    <i class="fa fa-file text-green"></i> <span>All Blog</span>
                     <span class="pull-right-container">
             </span>
                 </a>
@@ -103,24 +96,11 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a th:href="@{/admin/tasks/new}"><i class="fa fa-plus"></i> New Blog</a></li>
-                    <li><a th:href="@{/admin/tasks/all}"><i class="fa fa-file-text"></i> All Blog</a></li>
+                    <li><a th:href="@{/blogger/blogs/new}"><i class="fa fa-plus"></i> New Blog</a></li>
+                    <li><a th:href="@{/blogger/blogs/all}"><i class="fa fa-file-text"></i> All Blog</a></li>
                 </ul>
             </li>
-            <li th:if="${control == 'ADMIN'}" class="treeview">
-                <a href="#">
-                    <i class="fa fa-laptop text-red "></i>
-                    <span>User-Blog Management</span>
-                    <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right "></i>
-            </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a th:href="@{/admin/user-task/new}"><i class="fa fa-laptop"></i> Blog Assignment</a>
-                    </li>
-                    <li><a th:href="@{/admin/user-task/all}"><i class="fa fa-files-o"></i> User Blogs</a></li>
-                </ul>
-            </li>
+
         </ul>
     </section>
     <!-- /.sidebar -->

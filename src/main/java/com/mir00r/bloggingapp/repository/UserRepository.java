@@ -23,4 +23,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByEmail(String email);
 
     List<User> findByRole(Role role);
+
+    List<User> findByActive(int active);
+
+    @Query(value = "SELECT * from user where active = :activeStatus and id != :loggedUId", nativeQuery = true)
+    List<User> findAllUser(@Param("activeStatus") long activeStatus, @Param("loggedUId") long loggedUId);
 }

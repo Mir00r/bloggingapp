@@ -41,6 +41,12 @@ public class UserService {
         return users;
     }
 
+    public List<User> findAllByActive(int active, Long userId) {
+        List<User> users = new ArrayList<>();
+        users = userRepository.findAllUser(active, userId);
+        return users;
+    }
+
     public User findUser(Long id) {
         return userRepository.getOne(id);
     }
@@ -53,13 +59,18 @@ public class UserService {
         userRepository.save(user);
     }
 
-
     public User findUserByEmail(String email) {
         return this.userRepository.findByEmail(email);
     }
 
     public User findByUsername(String username) {
         return this.userRepository.findByUsername(username);
+    }
+
+    public void updateUserActiveStatus(Long id, int activate) {
+        User user = findUser(id);
+        user.setActive(activate);
+        userRepository.save(user);
     }
 
     public void updatePasswordInfo(User user) {
@@ -71,7 +82,7 @@ public class UserService {
 
     public void saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setActive(1);
+        //user.setActive(1);
         Role userRole = roleRepository.findByName(Constant.ROLE_TYPE.blogger.getRoleName());
         user.setRole(userRole);
         userRepository.save(user);
