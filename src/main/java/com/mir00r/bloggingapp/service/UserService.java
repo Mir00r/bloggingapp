@@ -41,6 +41,12 @@ public class UserService {
         return users;
     }
 
+    public List<User> findAllExceptCurrent(Long userId) {
+        List<User> users = new ArrayList<>();
+        users = userRepository.findAllExcept(userId);
+        return users;
+    }
+
     public List<User> findAllByActive(int active, Long userId) {
         List<User> users = new ArrayList<>();
         users = userRepository.findAllUser(active, userId);
