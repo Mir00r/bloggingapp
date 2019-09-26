@@ -62,6 +62,13 @@ public class UserService {
         return this.userRepository.findByUsername(username);
     }
 
+    public void updatePasswordInfo(User user) {
+        User oldUser = findUser(user.getId());
+        user.setName(oldUser.getName());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+    }
+
     public void saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setActive(1);
