@@ -56,13 +56,17 @@ public class BlogController {
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public ModelAndView allBlogs() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject(Constant.ATTRIBUTE_NAME.rule.name(), new Blog());
-        modelAndView.addObject("blogs", blogService.findAll());
-        modelAndView.addObject(Constant.ATTRIBUTE_NAME.auth.name(), getUser());
-        modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.name(), getUser().getRole().getName());
-        modelAndView.addObject(Constant.MODE, Constant.ACTION_MODE.allMode.getName());
-        modelAndView.addObject(Constant.BLOG, Constant.BLOG_TYPE.all.getName());
-        modelAndView.setViewName("blog");
+        if (getUser().getRole().getId() == Constant.ROLE_TYPE.admin.getRoleId()) {
+            modelAndView.addObject(Constant.ATTRIBUTE_NAME.rule.name(), new Blog());
+            modelAndView.addObject("blogs", blogService.findAll());
+            modelAndView.addObject(Constant.ATTRIBUTE_NAME.auth.name(), getUser());
+            modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.name(), getUser().getRole().getName());
+            modelAndView.addObject(Constant.MODE, Constant.ACTION_MODE.allMode.getName());
+            modelAndView.addObject(Constant.BLOG, Constant.BLOG_TYPE.all.getName());
+            modelAndView.setViewName("blog");
+        } else {
+            modelAndView.setViewName("redirect:/access-denied");
+        }
         return modelAndView;
     }
 
@@ -106,7 +110,7 @@ public class BlogController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public ModelAndView deleteBlog(@RequestParam Long id) {
-        ModelAndView modelAndView = new ModelAndView("redirect:/blogger/blogs/all");
+        ModelAndView modelAndView = new ModelAndView("redirect:/blogger/blogs/myblogs");
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.rule.name(), new Blog());
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.auth.name(), getUser());
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.name(), getUser().getRole().getName());
