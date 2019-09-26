@@ -66,18 +66,49 @@ public class BlogController {
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public ModelAndView allBlogs() {
         ModelAndView modelAndView = new ModelAndView();
-        if (getUser().getRole().getId() == Constant.ROLE_TYPE.admin.getRoleId()) {
-            modelAndView.addObject(Constant.ATTRIBUTE_NAME.rule.name(), new Blog());
+        User user = getUser();
+        if (user.getRole().getId() == Constant.ROLE_TYPE.admin.getRoleId()) {
             modelAndView.addObject("blogs", blogService.findAll());
-            modelAndView.addObject(Constant.ATTRIBUTE_NAME.auth.name(), getUser());
-            modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.name(), getUser().getRole().getName());
-            modelAndView.addObject(Constant.MODE, Constant.ACTION_MODE.allMode.getName());
-            modelAndView.addObject(Constant.BLOG, Constant.BLOG_TYPE.all.getName());
-            modelAndView.setViewName("blog");
+            setModelAttribute(modelAndView, user);
         } else {
             modelAndView.setViewName("redirect:/access-denied");
         }
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/pending-blog", method = RequestMethod.GET)
+    public ModelAndView allPendingBlogs() {
+        User user = getUser();
+        ModelAndView modelAndView = new ModelAndView();
+        if (user.getRole().getId() == Constant.ROLE_TYPE.admin.getRoleId()) {
+            modelAndView.addObject("blogs", blogService.findAllBlogsByStatus(0));
+            setModelAttribute(modelAndView, user);
+        } else {
+            modelAndView.setViewName("redirect:/access-denied");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/approved-blog", method = RequestMethod.GET)
+    public ModelAndView allApprovedBlogs() {
+        ModelAndView modelAndView = new ModelAndView();
+        User user = getUser();
+        if (user.getRole().getId() == Constant.ROLE_TYPE.admin.getRoleId()) {
+            modelAndView.addObject("blogs", blogService.findAllBlogsByStatus(1));
+            setModelAttribute(modelAndView, user);
+        } else {
+            modelAndView.setViewName("redirect:/access-denied");
+        }
+        return modelAndView;
+    }
+
+    private void setModelAttribute(ModelAndView modelAndView, User user) {
+        modelAndView.addObject(Constant.ATTRIBUTE_NAME.rule.name(), new Blog());
+        modelAndView.addObject(Constant.ATTRIBUTE_NAME.auth.name(), user);
+        modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.name(), user.getRole().getName());
+        modelAndView.addObject(Constant.MODE, Constant.ACTION_MODE.allMode.getName());
+        modelAndView.addObject(Constant.BLOG, Constant.BLOG_TYPE.all.getName());
+        modelAndView.setViewName("blog");
     }
 
     @RequestMapping(value = "/other-blog", method = RequestMethod.GET)
@@ -138,7 +169,13 @@ public class BlogController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public ModelAndView deleteBlog(@RequestParam Long id) {
-        ModelAndView modelAndView = new ModelAndView("redirect:/blogger/blogs/myblogs");
+        User user = getUser();
+        ModelAndView modelAndView = new ModelAndView();
+        if (user.getRole().getId() == Constant.ROLE_TYPE.blogger.getRoleId()) {
+            modelAndView.setViewName("redirect:/blogger/blogs/myblogs");
+        } else {
+            modelAndView.setViewName("redirect:/blogger/blogs/all");
+        }
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.rule.name(), new Blog());
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.auth.name(), getUser());
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.name(), getUser().getRole().getName());

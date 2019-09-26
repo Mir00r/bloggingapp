@@ -34,6 +34,12 @@ public class BlogService {
         return blogList;
     }
 
+    public List<Blog> findAllBlogsByStatus(int status) {
+        List<Blog> blogList = new ArrayList<>();
+        blogList = blogRepository.findByBlogStatus(status);
+        return blogList;
+    }
+
     public List<Blog> findAllBlogByUser(User user, long blogTypeId) {
         List<Blog> userBlogList = new ArrayList<>();
         if (blogTypeId == Constant.BLOG_TYPE.mine.getId())

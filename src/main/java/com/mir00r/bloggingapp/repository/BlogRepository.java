@@ -15,6 +15,8 @@ import java.util.List;
 public interface BlogRepository extends JpaRepository<Blog, Long> {
     List<Blog> findBlogByUser(User user);
 
+    List<Blog> findByBlogStatus(int blogStatus);
+
     @Query(value = "SELECT * from blog where user_id != :userId and blog_status = 1", nativeQuery = true)
     List<Blog> findOtherBlog(@Param("userId") long userId);
 }
