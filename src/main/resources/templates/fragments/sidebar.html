@@ -101,6 +101,13 @@
                 </ul>
             </li>
 
+            <li th:if="${control == 'ADMIN'}" class="treeview">
+                <a th:href="@{/users/new-admin}">
+                    <i class="fa fa-plus text-green"></i>
+                    <span>New Admin</span>
+                </a>
+            </li>
+
         </ul>
     </section>
     <!-- /.sidebar -->

@@ -4,6 +4,7 @@ import com.mir00r.bloggingapp.models.User;
 import com.mir00r.bloggingapp.service.RoleService;
 import com.mir00r.bloggingapp.service.UserService;
 import com.mir00r.bloggingapp.utils.Constant;
+import com.mir00r.bloggingapp.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,6 +31,8 @@ public class UserController {
     @Autowired
     private RoleService roleService;
 
+    @Autowired
+    private UserValidator userValidator;
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public ModelAndView allUsers() {
@@ -80,13 +83,31 @@ public class UserController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ModelAndView saveUser(@Valid User user, BindingResult bindingResult) {
-        ModelAndView modelAndView = new ModelAndView("redirect:/users/all-pending");
-        user.setPassword(userService.findUser(user.getId()).getPassword());
-        user.setActive(userService.findUser(user.getId()).getActive());
-        modelAndView.addObject(Constant.ATTRIBUTE_NAME.auth.name(), getUser());
-        modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.name(), getUser().getRole().getName());
-        userService.save(user);
+    public ModelAndView saveAdminUser(@Valid User user, BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView();
+        User loggedUser = getUser();
+        if (loggedUser.getRole().getId() == Constant.ROLE_TYPE.admin.getRoleId()) {
+            userValidator.validate(user, bindingResult);
+
+            if (bindingResult.hasErrors()) {
+                modelAndView.addObject("process", "ERROR");
+                if (bindingResult.getFieldError().getField().equals("username")) {
+                    modelAndView.addObject("pw_error", bindingResult.getFieldError().getDefaultMessage());
+                } else {
+                    modelAndView.addObject("pw_error", bindingResult.getFieldError().getDefaultMessage());
+                }
+                modelAndView.setViewName("user");
+            } else {
+                userService.saveUser(user, Constant.ROLE_TYPE.admin.getRoleId());
+                modelAndView.setViewName("redirect:/users/all-pending");
+            }
+            //modelAndView.addObject("user", new User());
+            modelAndView.addObject(Constant.MODE, Constant.ACTION_MODE.newMode.getName());
+            modelAndView.addObject(Constant.ATTRIBUTE_NAME.auth.name(), getUser());
+            modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.name(), getUser().getRole().getName());
+        } else {
+            modelAndView.setViewName("redirect:/access-denied");
+        }
         return modelAndView;
     }
 
@@ -145,6 +166,23 @@ public class UserController {
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.auth.name(), getUser());
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.name(), getUser().getRole().getName());
         userService.delete(id);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/new-admin", method = RequestMethod.GET)
+    public ModelAndView newAdmin() {
+        ModelAndView modelAndView = new ModelAndView();
+        User user = getUser();
+        if (user.getRole().getId() == Constant.ROLE_TYPE.admin.getRoleId()) {
+            modelAndView.addObject("user", new User());
+            modelAndView.addObject("users", userService.findAll());
+            modelAndView.addObject(Constant.ATTRIBUTE_NAME.auth.name(), user);
+            modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.name(), user.getRole().getName());
+            modelAndView.addObject(Constant.MODE, Constant.ACTION_MODE.newMode.getName());
+            modelAndView.setViewName("user");
+        } else {
+            modelAndView.setViewName("redirect:/access-denied");
+        }
         return modelAndView;
     }
 

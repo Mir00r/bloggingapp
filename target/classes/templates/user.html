@@ -154,20 +154,37 @@
                               role="form">
                             <fieldset>
                                 <!-- Form Name -->
-                                <legend>New Task</legend>
+                                <legend>Add New Admin</legend>
                                 <!-- Text input-->
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label" for="textinput">Blog Title</label>
+                                    <label class="col-md-4 control-label" for="textinput">User Name</label>
                                     <div class="col-md-4">
-                                        <input type="text" th:field="${user.name}" placeholder="Title"
+                                        <input type="text" th:field="${user.username}" placeholder="Username" required
+                                               class="form-control" maxlength="50"/>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="textinput">Name</label>
+                                    <div class="col-md-4">
+                                        <input type="text" th:field="${user.name}" placeholder="Name" required
                                                class="form-control" maxlength="50"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label" for="textinput">Blog Description</label>
+                                    <label class="col-md-4 control-label" for="textinput">Email</label>
                                     <div class="col-md-4">
-                                        <input type="text" th:field="${user.username}"
-                                               placeholder="Description" class="form-control" maxlength="255"/>
+                                        <input type="email" th:field="${user.email}" required
+                                               placeholder="Email" class="form-control" maxlength="100"/>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="textinput">Password</label>
+                                    <div class="col-md-4">
+                                        <input type="password" th:field="${user.password}" required
+                                               placeholder="Password" class="form-control" maxlength="255"/>
                                     </div>
                                 </div>
 
@@ -179,10 +196,16 @@
                                                 class="btn btn-success">Save
                                         </button>
                                         <button type="button" class="btn btn-inverse"
-                                                onclick="window.history.back()">Cancel
+                                                onclick="location.href='/home'">Cancel
                                         </button>
                                     </div>
 
+                                </div>
+
+                                <div th:if="${process == 'ERROR'}" class="col-md-offset-2 col-md-6 ">
+                                    <div class="alert alert-danger" role="alert"
+                                         th:utext="${pw_error}">...
+                                    </div>
                                 </div>
 
                             </fieldset>

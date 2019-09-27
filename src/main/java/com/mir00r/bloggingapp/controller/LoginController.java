@@ -61,7 +61,7 @@ public class LoginController {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("registration");
         } else {
-            userService.saveUser(user);
+            userService.saveUser(user, Constant.ROLE_TYPE.blogger.getRoleId());
             modelAndView.addObject("successMessage", "Registration Successful.");
             modelAndView.addObject("user", new User());
             modelAndView.setViewName("registration");

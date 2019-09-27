@@ -86,12 +86,19 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void saveUser(User user) {
+    public void saveUser(User user, Long roleId) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        //user.setActive(1);
-        Role userRole = roleRepository.findByName(Constant.ROLE_TYPE.blogger.getRoleName());
+        if (roleId == Constant.ROLE_TYPE.admin.getRoleId()) user.setActive(1);
+        Role userRole = getRole(roleId);
         user.setRole(userRole);
         userRepository.save(user);
+    }
+
+    private Role getRole(Long id) {
+        if (id == Constant.ROLE_TYPE.blogger.getRoleId())
+            return roleRepository.findByName(Constant.ROLE_TYPE.blogger.getRoleName());
+        else
+            return roleRepository.findByName(Constant.ROLE_TYPE.admin.getRoleName());
     }
 
     public List<User> findUserbyRole(Role role) {
