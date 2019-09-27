@@ -40,6 +40,12 @@ public class BlogService {
         return blogList;
     }
 
+    public List<Blog> findAllBlogByUser(User user) {
+        List<Blog> userBlogList = new ArrayList<>();
+        userBlogList = blogRepository.findBlogByUser(user);
+        return userBlogList;
+    }
+
     public List<Blog> findAllBlogByUser(User user, long blogTypeId) {
         List<Blog> userBlogList = new ArrayList<>();
         if (blogTypeId == Constant.BLOG_TYPE.mine.getId())
@@ -65,6 +71,10 @@ public class BlogService {
 
     public void delete(Long id) {
         blogRepository.deleteById(id);
+    }
+
+    public void delete(List<Blog> blogList) {
+        blogRepository.deleteAll(blogList);
     }
 
     private User getUser() {

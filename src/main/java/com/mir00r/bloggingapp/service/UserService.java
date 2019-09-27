@@ -27,6 +27,8 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private BlogService blogService;
 
     private Logger logger = LoggerFactory.getLogger(UserService.class);
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -58,6 +60,7 @@ public class UserService {
     }
 
     public void delete(Long id) {
+        blogService.delete(blogService.findAllBlogByUser(findUser(id)));
         userRepository.deleteById(id);
     }
 
