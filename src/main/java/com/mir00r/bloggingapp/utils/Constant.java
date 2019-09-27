@@ -52,7 +52,7 @@ public class Constant {
         newMode(1, "MODE_NEW"), allMode(2, "MODE_ALL"),
         updateMode(3, "MODE_UPDATE"), infoMode(4, "MODE_INF"),
         detailsMode(5, "MODE_DETAILS"), passMode(6, "MODE_PASS"),
-        editMode(7, "MODE_EDIT");
+        editMode(7, "MODE_EDIT"), commentMode(7, "MODE_COMMENT");
         private final long Id;
         private final String Name;
 

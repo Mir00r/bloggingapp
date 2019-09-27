@@ -11,7 +11,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "user_blog")
-public class UserBlog extends BaseModel {
+public class CommentBlog extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 
@@ -22,6 +22,8 @@ public class UserBlog extends BaseModel {
     @ManyToOne
     @JoinColumn(name = "BLOG_ID", referencedColumnName = "id")
     private Blog blog;
+
+    private String comment;
 
     public User getUser() {
         return user;
@@ -37,5 +39,13 @@ public class UserBlog extends BaseModel {
 
     public void setBlog(Blog blog) {
         this.blog = blog;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

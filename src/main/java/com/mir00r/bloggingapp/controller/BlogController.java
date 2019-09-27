@@ -3,7 +3,7 @@ package com.mir00r.bloggingapp.controller;
 import com.mir00r.bloggingapp.models.Blog;
 import com.mir00r.bloggingapp.models.User;
 import com.mir00r.bloggingapp.service.BlogService;
-import com.mir00r.bloggingapp.service.UserBlogService;
+import com.mir00r.bloggingapp.service.CommentBlogService;
 import com.mir00r.bloggingapp.service.UserService;
 import com.mir00r.bloggingapp.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class BlogController {
     @Autowired
     private BlogService blogService;
     @Autowired
-    private UserBlogService userBlogService;
+    private CommentBlogService commentBlogService;
     @Autowired
     private UserService userService;
 
@@ -220,7 +220,7 @@ public class BlogController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.rule.name(), new Blog());
         modelAndView.addObject("blog", blogService.findBlog(id));
-        modelAndView.addObject("userblogs", userBlogService.findByBlog(blogService.findBlog(id)));
+        modelAndView.addObject("userblogs", commentBlogService.findByBlog(blogService.findBlog(id)));
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.auth.name(), getUser());
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.name(), getUser().getRole().getName());
         modelAndView.addObject(Constant.MODE, Constant.ACTION_MODE.infoMode.getName());
