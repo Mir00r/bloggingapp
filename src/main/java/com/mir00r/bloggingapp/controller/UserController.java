@@ -95,7 +95,7 @@ public class UserController {
         User user = getUser();
         ModelAndView modelAndView = new ModelAndView("redirect:/users/all-pending");
         if (user.getRole().getId() == Constant.ROLE_TYPE.admin.getRoleId()) {
-            setModelAttribute(modelAndView);
+            setModelAttribute(modelAndView, user);
             userService.updateUserActiveStatus(id, 1);
         } else {
             modelAndView.setViewName("redirect:/access-denied");
@@ -108,7 +108,7 @@ public class UserController {
         User user = getUser();
         ModelAndView modelAndView = new ModelAndView("redirect:/users/all-approved");
         if (user.getRole().getId() == Constant.ROLE_TYPE.admin.getRoleId()) {
-            setModelAttribute(modelAndView);
+            setModelAttribute(modelAndView, user);
             userService.updateUserActiveStatus(id, 0);
         } else {
             modelAndView.setViewName("redirect:/access-denied");
@@ -116,8 +116,7 @@ public class UserController {
         return modelAndView;
     }
 
-    private void setModelAttribute(ModelAndView modelAndView) {
-        User user = getUser();
+    private void setModelAttribute(ModelAndView modelAndView, User user) {
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.rule.name(), new User());
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.auth.name(), user);
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.name(), user.getRole().getName());
@@ -131,7 +130,7 @@ public class UserController {
             modelAndView.addObject("user", userService.findUser(id));
             modelAndView.addObject(Constant.ROLES, roleService.findAll());
             modelAndView.addObject(Constant.MODE, Constant.ACTION_MODE.detailsMode.getName());
-            setModelAttribute(modelAndView);
+            setModelAttribute(modelAndView, user);
             modelAndView.setViewName("user");
         } else {
             modelAndView.setViewName("redirect:/access-denied");

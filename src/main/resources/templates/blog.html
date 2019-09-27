@@ -64,8 +64,11 @@
                                             <th th:if="${blogType == 'other'} or ${blogType == 'all'}">User Name</th>
                                             <th>Status</th>
                                             <th>Date-Created</th>
+
+                                            <th th:if="${control == 'ADMIN'}"></th>
                                             <th th:if="${blogType == 'mine'}"></th>
                                             <th th:if="${blogType == 'mine'} or ${blogType == 'all'}"></th>
+
                                             <th></th>
                                         </tr>
                                         </thead>
@@ -80,6 +83,15 @@
                                             <td th:if="${blog.blogStatus == 1}" th:text="#{accepted.txt}"
                                                 style="color: green; font-weight: bold"></td>
                                             <td th:text="${blog.createDate}"></td>
+
+                                            <td th:if="${blog.blogStatus== 0} and ${control == 'ADMIN'}">
+                                                <a th:href="@{/blogger/blogs/approved(id=${blog.id})}"
+                                                   class="delete-confirmation"><span
+                                                        class="glyphicon glyphicon-check"></span> </a></td>
+                                            <td th:if="${blog.blogStatus== 1} and ${control == 'ADMIN'}">
+                                                <a th:href="@{/blogger/blogs/deactivate(id=${blog.id})}"
+                                                   class="delete-confirmation"><span
+                                                        class="glyphicon glyphicon-remove"></span> </a></td>
 
                                             <td th:if="${blogType == 'mine'}"><a
                                                     th:href="@{/blogger/blogs/update(id=${blog.id})}"><span

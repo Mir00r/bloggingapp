@@ -52,6 +52,12 @@ public class BlogService {
         return blogRepository.getOne(id);
     }
 
+    public void updateBlogStatus(Long id, int status) {
+        Blog blog = findBlog(id);
+        blog.setBlogStatus(status);
+        blogRepository.save(blog);
+    }
+
     public void save(Blog blog) {
         blog.setUser(getUser());
         blogRepository.save(blog);

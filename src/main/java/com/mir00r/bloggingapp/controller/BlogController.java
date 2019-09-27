@@ -183,6 +183,38 @@ public class BlogController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/approved", method = RequestMethod.GET)
+    public ModelAndView approvedBlog(@RequestParam Long id) {
+        User user = getUser();
+        ModelAndView modelAndView = new ModelAndView("redirect:/blogger/blogs/pending-blog");
+        if (user.getRole().getId() == Constant.ROLE_TYPE.admin.getRoleId()) {
+            setAttribute(modelAndView, user);
+            blogService.updateBlogStatus(id, 1);
+        } else {
+            modelAndView.setViewName("redirect:/access-denied");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/deactivate", method = RequestMethod.GET)
+    public ModelAndView deactivateBlog(@RequestParam Long id) {
+        User user = getUser();
+        ModelAndView modelAndView = new ModelAndView("redirect:/blogger/blogs/approved-blog");
+        if (user.getRole().getId() == Constant.ROLE_TYPE.admin.getRoleId()) {
+            setAttribute(modelAndView, user);
+            blogService.updateBlogStatus(id, 0);
+        } else {
+            modelAndView.setViewName("redirect:/access-denied");
+        }
+        return modelAndView;
+    }
+
+    private void setAttribute(ModelAndView modelAndView, User user) {
+        modelAndView.addObject(Constant.ATTRIBUTE_NAME.rule.name(), new User());
+        modelAndView.addObject(Constant.ATTRIBUTE_NAME.auth.name(), user);
+        modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.name(), user.getRole().getName());
+    }
+
     @RequestMapping(value = "/per_inf", method = RequestMethod.GET)
     public ModelAndView infoBlog(@RequestParam Long id) {
         ModelAndView modelAndView = new ModelAndView();
