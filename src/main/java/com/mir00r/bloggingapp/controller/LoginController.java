@@ -67,7 +67,7 @@ public class LoginController {
             modelAndView.setViewName("registration");
         } else {
             userService.saveUser(user, Constant.ROLE_TYPE.blogger.getRoleId());
-            modelAndView.addObject("successMessage", "Registration Successful.");
+            modelAndView.addObject("successMessage", "Registration successful please activate this account from admin user.");
             modelAndView.addObject("user", new User());
             modelAndView.setViewName("registration");
         }
