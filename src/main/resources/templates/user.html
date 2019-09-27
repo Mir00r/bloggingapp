@@ -80,12 +80,12 @@
                                                 style="color: green; font-weight: bold"></td>
                                             <td th:text="${user.createDate}"></td>
 
-                                            <td th:if="${user.active== 0}">
-                                                <a th:href="@{/users/approved(id=${user.id})}"
+                                            <td th:if="${user.active== 0} ">
+                                                <a th:if="${auth.id != user.id}" th:href="@{/users/approved(id=${user.id})}"
                                                    class="delete-confirmation"><span
                                                         class="glyphicon glyphicon-check"></span> </a></td>
-                                            <td th:if="${user.active== 1}">
-                                                <a th:href="@{/users/deactivate(id=${user.id})}"
+                                            <td th:if="${user.active== 1} ">
+                                                <a th:if="${auth.id != user.id}" th:href="@{/users/deactivate(id=${user.id})}"
                                                    class="delete-confirmation"><span
                                                         class="glyphicon glyphicon-remove"></span> </a></td>
                                             <td><a th:href="@{/users/details(id=${user.id})}"><span

@@ -56,7 +56,7 @@
                             <div class="icon">
                                 <i class="ion ion-person"></i>
                             </div>
-                            <a th:href="@{/users/all}" class="small-box-footer">More info <i
+                            <a th:href="@{/users/all-blogger}" class="small-box-footer">More info <i
                                     class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
@@ -71,7 +71,7 @@
                             <div class="icon">
                                 <i class="ion ion-person"></i>
                             </div>
-                            <a th:href="@{/users/all}" class="small-box-footer">More info <i
+                            <a th:href="@{/users/all-admin}" class="small-box-footer">More info <i
                                     class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
@@ -80,13 +80,13 @@
                         <div class="small-box bg-blue">
                             <div class="inner">
                                 <h3>      	<span style="color: white; font-weight: bold"
-                                                  ></span></h3>
-                                <p>Number of Tasks</p>
+                                                  th:utext="${blogCount}"></span></h3>
+                                <p>Number of Blogs</p>
                             </div>
                             <div class="icon">
                                 <i class="icon ion-compose"></i>
                             </div>
-                            <a th:href="@{/admin/tasks/all}" class="small-box-footer">More info <i
+                            <a th:href="@{/blogger/blogs/all}" class="small-box-footer">More info <i
                                     class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
@@ -109,7 +109,7 @@
                         <div class="widget-user-header bg-purple-active">
                             <h3 class="widget-user-username"><span class="hidden-xs" th:utext="${auth.name}"></span>
                             </h3>
-                            <h5 class="widget-user-desc"><span class="hidden-xs" th:utext="${auth.role.name}"></span>
+                            <h5 class="widget-user-desc"><span class="hidden-xs" th:utext="${auth.username}"></span>
                             </h5>
                         </div>
                         <div class="widget-user-image">
@@ -126,8 +126,8 @@
                                 <div class="col-sm-4 border-right">
                                     <div class="description-block">
                                         <h5 class="description-header"><span class="hidden-xs"
-                                                                             ></span></h5>
-                                        <span class="description-text">TASKS</span>
+                                        ></span></h5>
+                                        <span class="description-text" th:utext="${auth.role.name}"></span>
                                     </div>
                                     <!-- /.description-block -->
                                 </div>

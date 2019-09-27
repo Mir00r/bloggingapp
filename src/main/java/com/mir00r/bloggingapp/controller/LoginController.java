@@ -1,7 +1,9 @@
 package com.mir00r.bloggingapp.controller;
 
+import com.mir00r.bloggingapp.models.Blog;
 import com.mir00r.bloggingapp.models.Role;
 import com.mir00r.bloggingapp.models.User;
+import com.mir00r.bloggingapp.service.BlogService;
 import com.mir00r.bloggingapp.service.RoleService;
 import com.mir00r.bloggingapp.service.UserService;
 import com.mir00r.bloggingapp.utils.Constant;
@@ -36,6 +38,9 @@ public class LoginController {
 
     @Autowired
     private UserValidator userValidator;
+
+    @Autowired
+    private BlogService blogService;
 
     @RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
     public ModelAndView login() {
@@ -87,14 +92,14 @@ public class LoginController {
         List<User> users2 = new ArrayList<>();
         users = userService.findUserbyRole(role);
         users2 = userService.findUserbyRole(role2);
-        //List<Task> tasks = new ArrayList<>();
-        //tasks = taskService.findAll();
-        //int taskCount = tasks.size();
+        List<Blog> blogs = new ArrayList<>();
+        blogs = blogService.findAll();
+        int blogCount = blogs.size();
         int adminCount = users.size();
         int userCount = users2.size();
         modelAndView.addObject("adminCount", adminCount);//Authentication for NavBar
         modelAndView.addObject("userCount", userCount);//Authentication for NavBar
-        //modelAndView.addObject("taskCount", taskCount);//Authentication for NavBar*/
+        modelAndView.addObject("blogCount", blogCount);//Authentication for NavBar*/
         //-----------------------------------------
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         //User loginUser = userService.findUserByEmail(auth.getName());
