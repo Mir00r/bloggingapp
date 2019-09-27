@@ -6,35 +6,35 @@
  * General styles
  */
 
-body, html{
-     height: 100%;
- 	background-repeat: no-repeat;
- 	background:url(https://i.ytimg.com/vi/4kfXjatgeEU/maxresdefault.jpg);
- 	font-family: 'Oxygen', sans-serif;
-	    background-size: cover;
+body, html {
+    height: 100%;
+    background-repeat: no-repeat;
+    /*background: url(https://i.ytimg.com/vi/4kfXjatgeEU/maxresdefault.jpg);*/
+    font-family: 'Oxygen', sans-serif;
+    background-size: cover;
 }
 
-.main{
- 	margin-top: 70px;
+.main {
+    margin-top: 70px;
 }
 
-h1.title { 
-	font-size: 50px;
-	font-family: 'Passion One', cursive; 
-	font-weight: 400; 
+h1.title {
+    font-size: 50px;
+    font-family: 'Passion One', cursive;
+    font-weight: 400;
 }
 
-hr{
-	width: 10%;
-	color: #fff;
+hr {
+    width: 10%;
+    color: #fff;
 }
 
-.form-group{
-	margin-bottom: 15px;
+.form-group {
+    margin-bottom: 15px;
 }
 
-label{
-	margin-bottom: 15px;
+label {
+    margin-bottom: 15px;
 }
 
 input,
@@ -43,8 +43,8 @@ input::-webkit-input-placeholder {
     padding-top: 3px;
 }
 
-.main-login{
- 	background-color: #fff;
+.main-login {
+    background-color: #fff;
     /* shadows and rounded borders */
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
@@ -55,19 +55,18 @@ input::-webkit-input-placeholder {
 
 }
 
-.main-center{
- 	margin-top: 30px;
- 	margin: 0 auto;
- 	max-width: 330px;
+.main-center {
+    margin-top: 30px;
+    margin: 0 auto;
+    max-width: 330px;
     padding: 40px 40px;
-
 }
 
-.login-button{
-	margin-top: 5px;
+.login-button {
+    margin-top: 5px;
 }
 
-.login-register{
-	font-size: 11px;
-	text-align: center;
+.login-register {
+    font-size: 11px;
+    text-align: center;
 }

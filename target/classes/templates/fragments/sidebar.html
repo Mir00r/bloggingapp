@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<!-- Left side column. contains the logo and sidebar -->
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img src="/images/avatar5.png" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+                <p><span class="hidden-xs" th:utext="${auth.name}"></span></p>
+            </div>
+        </div>
+        <!-- search form -->
+        <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search...">
+                <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+            </div>
+        </form>
+        <!-- /.search form -->
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu">
+            <li class="header">MAIN NAVIGATION</li>
+            <li class="treeview">
+                <a th:href="@{/home}">
+                    <i class="fa fa-home text-yellow"></i> <span>Home Page</span>
+                    <span class="pull-right-container">
+            </span>
+                </a>
+            </li>
+            <li th:if="${control != 'ADMIN'}" class="treeview">
+                <a th:href="@{/blogger/blogs/myblogs}">
+                    <i class="fa fa-file-text text-green"></i> <span>My Blog</span>
+                    <span class="pull-right-container">
+            </span>
+                </a>
+            </li>
+            <li th:if="${control != 'ADMIN'}" class="treeview">
+                <a th:href="@{/blogger/blogs/new}">
+                    <i class="fa fa-plus text-green"></i> <span>New Blog</span>
+                    <span class="pull-right-container">
+            </span>
+                </a>
+            </li>
+            <li th:if="${control != 'ADMIN'}" class="treeview">
+                <a th:href="@{/blogger/blogs/other-blog}">
+                    <i class="fa fa-file-text text-blue"></i> <span>Other Blog</span>
+                    <span class="pull-right-container">
+            </span>
+                </a>
+            </li>
+            <li th:if="${control == 'ADMIN'}" class="treeview">
+                <a th:href="@{/users/all}">
+                    <i class="fa fa-users text-green"></i>
+                    <span>All Users</span>
+                </a>
+            </li>
+            <li th:if="${control == 'ADMIN'}" class="treeview">
+                <a href="#">
+                    <i class="fa fa-odnoklassniki text-blue"></i>
+                    <span>Users</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a th:href="@{/users/all-pending}"><i
+                            class="fa fa-user"></i> Pending</a></li>
+                    <li><a th:href="@{/users/all-approved}"><i class="fa fa-odnoklassniki"></i>
+                        Approved</a></li>
+                </ul>
+            </li>
+            <li th:if="${control == 'ADMIN'}" class="treeview">
+                <a th:href="@{/blogger/blogs/all}">
+                    <i class="fa fa-file text-green"></i> <span>All Blog</span>
+                    <span class="pull-right-container">
+            </span>
+                </a>
+            </li>
+
+            <li th:if="${control == 'ADMIN'}" class="treeview">
+                <a href="#">
+                    <i class="fa fa-files-o text-purple"></i>
+                    <span>Blogs</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a th:href="@{/blogger/blogs/pending-blog}"><i class="fa fa-file"></i> Pending</a></li>
+                    <li><a th:href="@{/blogger/blogs/approved-blog}"><i class="fa fa-file-text"></i> Approved</a></li>
+                </ul>
+            </li>
+
+            <li th:if="${control == 'ADMIN'}" class="treeview">
+                <a th:href="@{/users/new-admin}">
+                    <i class="fa fa-plus text-green"></i>
+                    <span>New Admin</span>
+                </a>
+            </li>
+
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>
+
+</html>

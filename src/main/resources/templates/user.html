@@ -1,0 +1,314 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>HOME</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/css/dataTables.bootstrap.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/css/AdminLTE.min.css">
+
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="/css/_all-skins.min.css">
+    <link href="/css/bootselect.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <div th:replace="/fragments/header"></div>
+    <div th:replace="/fragments/sidebar"></div>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div th:if="${mode == 'MODE_ALL'}">
+                <section class="content-header">
+                    <h1>
+                        USER TABLES
+                    </h1>
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="box">
+                                <!-- /.box-header -->
+                                <div class="box-body">
+                                    <table id="example1" class="table table-bordered table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>User Name</th>
+                                            <th>Email</th>
+                                            <th>Status</th>
+                                            <th>Date-Created</th>
+
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="user : ${users}">
+                                            <td th:text="${user.name}"></td>
+                                            <td th:text="${user.username}"></td>
+                                            <td th:text="${user.email}"></td>
+                                            <td th:if="${user.active== 0}" th:text="#{pending.txt}"
+                                                style="color: gray; font-weight: bold"></td>
+                                            <td th:if="${user.active == 1}" th:text="#{accepted.txt}"
+                                                style="color: green; font-weight: bold"></td>
+                                            <td th:text="${user.createDate}"></td>
+
+                                            <td th:if="${user.active== 0} ">
+                                                <a th:if="${auth.id != user.id}" th:href="@{/users/approved(id=${user.id})}"
+                                                   class="delete-confirmation"><span
+                                                        class="glyphicon glyphicon-check"></span> </a></td>
+                                            <td th:if="${user.active== 1} ">
+                                                <a th:if="${auth.id != user.id}" th:href="@{/users/deactivate(id=${user.id})}"
+                                                   class="delete-confirmation"><span
+                                                        class="glyphicon glyphicon-remove"></span> </a></td>
+                                            <td><a th:href="@{/users/details(id=${user.id})}"><span
+                                                    class="glyphicon glyphicon-file"></span> </a></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.box -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </section>
+            </div>
+            <div th:if="${mode == 'MODE_UPDATE'}">
+                <div class="container">
+                    <div class="row">
+                        <form autocomplete="off" action="#" th:action="@{/users/save}"
+                              th:object="${user}" method="post" class="form-horizontal"
+                              role="form">
+                            <fieldset>
+                                <!-- Form Name -->
+                                <legend>Edit User</legend>
+                                <!-- Text input-->
+                                <input type="hidden" name="id" th:field="${user.id}"/>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="textinput">Name</label>
+                                    <div class="col-md-4">
+                                        <input type="text" th:field="${user.name}" placeholder="Title"
+                                               class="form-control" maxlength="50"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="textinput">User Name</label>
+                                    <div class="col-md-4">
+                                        <input type="text" th:field="${user.username}"
+                                               placeholder="Description" class="form-control" maxlength="255"/>
+                                    </div>
+                                </div>
+
+                                <!-- Button (Double) -->
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="submitButton"></label>
+                                    <div class="col-md-8">
+                                        <button type="submit" id="submitButton" name="submitButton"
+                                                class="btn btn-success">Save
+                                        </button>
+                                        <button type="button" class="btn btn-inverse"
+                                                onclick="window.history.back()">Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${mode == 'MODE_NEW'}">
+                <div class="container">
+                    <div class="row">
+                        <form autocomplete="off" action="#" th:action="@{/users/save}"
+                              th:object="${user}" method="post" class="form-horizontal"
+                              role="form">
+                            <fieldset>
+                                <!-- Form Name -->
+                                <legend>Add New Admin</legend>
+                                <!-- Text input-->
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="textinput">User Name</label>
+                                    <div class="col-md-4">
+                                        <input type="text" th:field="${user.username}" placeholder="Username" required
+                                               class="form-control" maxlength="50"/>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="textinput">Name</label>
+                                    <div class="col-md-4">
+                                        <input type="text" th:field="${user.name}" placeholder="Name" required
+                                               class="form-control" maxlength="50"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="textinput">Email</label>
+                                    <div class="col-md-4">
+                                        <input type="email" th:field="${user.email}" required
+                                               placeholder="Email" class="form-control" maxlength="100"/>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="textinput">Password</label>
+                                    <div class="col-md-4">
+                                        <input type="password" th:field="${user.password}" required
+                                               placeholder="Password" class="form-control" maxlength="255"/>
+                                    </div>
+                                </div>
+
+                                <!-- Button (Double) -->
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="submitButton"></label>
+                                    <div class="col-md-8">
+                                        <button type="submit" id="submtButton" name="submitButton"
+                                                class="btn btn-success">Save
+                                        </button>
+                                        <button type="button" class="btn btn-inverse"
+                                                onclick="location.href='/home'">Cancel
+                                        </button>
+                                    </div>
+
+                                </div>
+
+                                <div th:if="${process == 'ERROR'}" class="col-md-offset-2 col-md-6 ">
+                                    <div class="alert alert-danger" role="alert"
+                                         th:utext="${pw_error}">...
+                                    </div>
+                                </div>
+
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${mode == 'MODE_DETAILS'}">
+                <section class="content-header" style="color: black; font-weight: bold">
+                    <h2>
+                        User Details
+                    </h2>
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="box">
+
+                                <div class="box-body">
+                                    <table id="table2" class="table table-bordered table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>User Name</th>
+                                            <th>Email</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:object="${user}">
+                                            <td th:text="${user.name}"></td>
+                                            <td th:text="${user.username}"></td>
+                                            <td th:text="${user.email}"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.box -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- Button (Double) -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="submitButton"></label>
+                        <div class="col-md-8">
+                            <button type="button" class="btn btn-inverse"
+                                    onclick="window.history.back()">Back
+                            </button>
+                        </div>
+
+                    </div>
+                    <!-- /.row -->
+                </section>
+            </div>
+        </section>
+
+        <!-- /.content -->
+    </div>
+
+    <div class="control-sidebar-bg"></div>
+</div>
+
+
+<!-- jQuery 2.2.3 -->
+<script src="/js/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+
+<!-- SlimScroll -->
+<script src="/js/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="/js/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="/js/app.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="/js/demo.js"></script>
+<!-- page script -->
+<script src="/js/jquery.dataTables.min.js"></script>
+<script src="/js/dataTables.bootstrap.min.js"></script>
+<script src="/js/bootstrap-select.min.js"></script>
+<script src="/js/bootstrap-maxlength.js"></script>
+<script>
+    $(function () {
+        $('#example1').DataTable({
+            "ordering": false
+        });
+        $('#table2').DataTable();
+    });
+    $('input.form-control').maxlength({
+        alwaysShow: true,
+        threshold: 10,
+        warningClass: "label label-success",
+        limitReachedClass: "label label-danger",
+        separator: ' of ',
+        preText: 'You have ',
+        postText: ' chars remaining.',
+        validate: true
+    });
+</script>
+
+</body>
+</html>

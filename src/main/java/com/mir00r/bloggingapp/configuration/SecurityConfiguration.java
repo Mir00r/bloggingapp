@@ -1,5 +1,6 @@
 package com.mir00r.bloggingapp.configuration;
 
+import com.mir00r.bloggingapp.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -29,15 +30,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
-    @Value("${spring.queries.users-query}")
+    @Value("${spring.queries.users-query-username}")
     private String usersQuery;
 
-    @Value("${spring.queries.roles-query}")
+    @Value("${spring.queries.roles-query-username}")
     private String rolesQuery;
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth)
-            throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.
                 jdbcAuthentication()
                 .usersByUsernameQuery(usersQuery)
@@ -48,25 +48,26 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http.
                 authorizeRequests()
                 .antMatchers("/").permitAll()
                 //.antMatchers("/index").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/registration").permitAll()
-                .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
-                //.antMatchers("/user/**").hasAuthority("USER").anyRequest()
-                .authenticated().and().csrf().disable().formLogin()
+                .antMatchers("/admin/**").hasRole(Constant.ROLE_TYPE.admin.getRoleName())
+                //.antMatchers("/user/**")
+                //.hasAnyRole(Constant.ROLE_TYPE.admin.getRoleName(), Constant.ROLE_TYPE.blogger.getRoleName())
+                .anyRequest().authenticated()
+                .and()
+                .csrf().disable().formLogin()
                 .loginPage("/login").failureUrl("/login?error=true")
-                //.defaultSuccessUrl("/home")
-                .usernameParameter("email")
+                .defaultSuccessUrl("/home")
+                .usernameParameter("username")
                 .passwordParameter("password")
                 .and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/").and().exceptionHandling()
                 .accessDeniedPage("/access-denied");
-
     }
 
     @Override
