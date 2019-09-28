@@ -228,7 +228,7 @@
                             <div class="box">
 
                                 <div class="box-body">
-                                    <table id="table2" class="table table-bordered table-striped">
+                                    <table class="table table-bordered table-striped">
                                         <thead>
                                         <tr>
                                             <th>Title</th>
@@ -246,6 +246,24 @@
                                     </table>
                                 </div>
                                 <!-- /.box-body -->
+                            </div>
+                            <div class="box">
+                                <div class="box-body">
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>User</th>
+                                            <th>Comment</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="comment : ${comments}">
+                                            <td th:text="${comment.user.username}"></td>
+                                            <td th:text="${comment.comment}"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                             <!-- /.box -->
                         </div>

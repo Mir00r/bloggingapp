@@ -237,6 +237,7 @@ public class BlogController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.rule.name(), new Blog());
         modelAndView.addObject("blog", blogService.findBlog(id));
+        modelAndView.addObject("comments", commentBlogService.findByBlog(blogService.findBlog(id)));
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.auth.name(), getUser());
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.name(), getUser().getRole().getName());
         modelAndView.addObject(Constant.MODE, Constant.ACTION_MODE.detailsMode.getName());
