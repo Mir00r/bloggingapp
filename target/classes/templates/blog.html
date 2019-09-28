@@ -62,6 +62,7 @@
                                             <th>Title</th>
                                             <th>Description</th>
                                             <th th:if="${blogType == 'other'} or ${blogType == 'all'}">User Name</th>
+                                            <th>Number Of Comment</th>
                                             <th>Status</th>
                                             <th>Date-Created</th>
 
@@ -79,6 +80,9 @@
                                             <td th:text="${blog.description}"></td>
                                             <td th:if="${blogType == 'other'} or ${blogType == 'all'}"
                                                 th:text="${blog.user.username}"></td>
+
+                                            <td th:text="${commentBlogs.get(blog).size()}"></td>
+
                                             <td th:if="${blog.blogStatus == 0}" th:text="#{pending.txt}"
                                                 style="color: gray; font-weight: bold"></td>
                                             <td th:if="${blog.blogStatus == 1}" th:text="#{accepted.txt}"
@@ -306,7 +310,7 @@
                         <fieldset>
                             <!-- Form Name -->
                             <legend>New Comment</legend>
-                            <input type="hidden" name="blog" th:field="${blog}"/>
+                            <input type="hidden" name="blog" th:field="${blog.id}"/>
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Blog Comment</label>
                                 <div class="col-md-4">

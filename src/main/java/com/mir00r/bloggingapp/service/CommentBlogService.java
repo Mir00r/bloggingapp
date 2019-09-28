@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -24,6 +25,8 @@ public class CommentBlogService {
     private CommentBlogRepository commentBlogRepository;
     @Autowired
     private UserService userService;
+    @Autowired
+    private BlogService blogService;
 
     public List<CommentBlog> findAll() {
         List<CommentBlog> blogList = new ArrayList<>();
@@ -36,7 +39,9 @@ public class CommentBlogService {
     }
 
     public void save(CommentBlog commentBlog) {
+        commentBlog.setBlog(blogService.findBlog(commentBlog.getId()));
         commentBlog.setUser(getUser());
+        commentBlog.setId(null);
         commentBlogRepository.save(commentBlog);
     }
 
@@ -50,6 +55,23 @@ public class CommentBlogService {
 
     public List<CommentBlog> findByUser(User user) {
         return commentBlogRepository.findByUser(user);
+    }
+
+    public HashMap<Blog, List<User>> findAllByBlogAndUser() {
+        HashMap<Blog, List<User>> blogListHashMap = new HashMap<>();
+
+        List<Blog> blogList = blogService.findAll();
+        List<User> userList;
+
+        for (Blog blog : blogList) {
+            userList = new ArrayList<>();
+            List<CommentBlog> commentBlogList = commentBlogRepository.findByBlog(blog);
+            for (CommentBlog commentBlog : commentBlogList) {
+                userList.add(commentBlog.getUser());
+            }
+            blogListHashMap.put(blog, userList);
+        }
+        return blogListHashMap;
     }
 
     private User getUser() {
