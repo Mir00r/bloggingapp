@@ -1,7 +1,6 @@
 package com.mir00r.bloggingapp.controller;
 
 import com.mir00r.bloggingapp.models.User;
-import com.mir00r.bloggingapp.service.UserBlogService;
 import com.mir00r.bloggingapp.service.UserService;
 import com.mir00r.bloggingapp.utils.Constant;
 import com.mir00r.bloggingapp.validator.PasswordValidator;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.Map;
 
 /**
  * @author mir00r on 2019-09-26

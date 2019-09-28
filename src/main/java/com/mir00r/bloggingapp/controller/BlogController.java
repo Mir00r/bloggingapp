@@ -3,7 +3,7 @@ package com.mir00r.bloggingapp.controller;
 import com.mir00r.bloggingapp.models.Blog;
 import com.mir00r.bloggingapp.models.User;
 import com.mir00r.bloggingapp.service.BlogService;
-import com.mir00r.bloggingapp.service.UserBlogService;
+import com.mir00r.bloggingapp.service.CommentBlogService;
 import com.mir00r.bloggingapp.service.UserService;
 import com.mir00r.bloggingapp.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class BlogController {
     @Autowired
     private BlogService blogService;
     @Autowired
-    private UserBlogService userBlogService;
+    private CommentBlogService commentBlogService;
     @Autowired
     private UserService userService;
 
@@ -69,6 +69,7 @@ public class BlogController {
         User user = getUser();
         if (user.getRole().getId() == Constant.ROLE_TYPE.admin.getRoleId()) {
             modelAndView.addObject("blogs", blogService.findAll());
+            modelAndView.addObject("commentBlogs", commentBlogService.findAllByBlogAndUser());
             setModelAttribute(modelAndView, user);
         } else {
             modelAndView.setViewName("redirect:/access-denied");
@@ -82,6 +83,7 @@ public class BlogController {
         ModelAndView modelAndView = new ModelAndView();
         if (user.getRole().getId() == Constant.ROLE_TYPE.admin.getRoleId()) {
             modelAndView.addObject("blogs", blogService.findAllBlogsByStatus(0));
+            modelAndView.addObject("commentBlogs", commentBlogService.findAllByBlogAndUser());
             setModelAttribute(modelAndView, user);
         } else {
             modelAndView.setViewName("redirect:/access-denied");
@@ -95,6 +97,7 @@ public class BlogController {
         User user = getUser();
         if (user.getRole().getId() == Constant.ROLE_TYPE.admin.getRoleId()) {
             modelAndView.addObject("blogs", blogService.findAllBlogsByStatus(1));
+            modelAndView.addObject("commentBlogs", commentBlogService.findAllByBlogAndUser());
             setModelAttribute(modelAndView, user);
         } else {
             modelAndView.setViewName("redirect:/access-denied");
@@ -118,6 +121,7 @@ public class BlogController {
         if (user.getRole().getId() == Constant.ROLE_TYPE.blogger.getRoleId()) {
             modelAndView.addObject(Constant.ATTRIBUTE_NAME.rule.name(), new Blog());
             modelAndView.addObject("blogs", blogService.findAllBlogByUser(user, Constant.BLOG_TYPE.other.getId()));
+            modelAndView.addObject("commentBlogs", commentBlogService.findAllByBlogAndUser());
             modelAndView.addObject(Constant.ATTRIBUTE_NAME.auth.name(), user);
             modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.name(), user.getRole().getName());
             modelAndView.addObject(Constant.MODE, Constant.ACTION_MODE.allMode.getName());
@@ -126,7 +130,6 @@ public class BlogController {
         } else {
             modelAndView.setViewName("redirect:/access-denied");
         }
-
         return modelAndView;
     }
 
@@ -137,6 +140,7 @@ public class BlogController {
         if (user.getRole().getId() == Constant.ROLE_TYPE.blogger.getRoleId()) {
             modelAndView.addObject(Constant.ATTRIBUTE_NAME.rule.name(), new Blog());
             modelAndView.addObject("blogs", blogService.findAllBlogByUser(user, Constant.BLOG_TYPE.mine.getId()));
+            modelAndView.addObject("commentBlogs", commentBlogService.findAllByBlogAndUser());
             modelAndView.addObject(Constant.ATTRIBUTE_NAME.auth.name(), user);
             modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.name(), user.getRole().getName());
             modelAndView.addObject(Constant.MODE, Constant.ACTION_MODE.allMode.getName());
@@ -220,7 +224,7 @@ public class BlogController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.rule.name(), new Blog());
         modelAndView.addObject("blog", blogService.findBlog(id));
-        modelAndView.addObject("userblogs", userBlogService.findByBlog(blogService.findBlog(id)));
+        modelAndView.addObject("userblogs", commentBlogService.findByBlog(blogService.findBlog(id)));
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.auth.name(), getUser());
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.name(), getUser().getRole().getName());
         modelAndView.addObject(Constant.MODE, Constant.ACTION_MODE.infoMode.getName());
@@ -233,6 +237,7 @@ public class BlogController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.rule.name(), new Blog());
         modelAndView.addObject("blog", blogService.findBlog(id));
+        modelAndView.addObject("comments", commentBlogService.findByBlog(blogService.findBlog(id)));
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.auth.name(), getUser());
         modelAndView.addObject(Constant.ATTRIBUTE_NAME.control.name(), getUser().getRole().getName());
         modelAndView.addObject(Constant.MODE, Constant.ACTION_MODE.detailsMode.getName());

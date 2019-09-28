@@ -62,9 +62,11 @@
                                             <th>Title</th>
                                             <th>Description</th>
                                             <th th:if="${blogType == 'other'} or ${blogType == 'all'}">User Name</th>
+                                            <th>Number Of Comment</th>
                                             <th>Status</th>
                                             <th>Date-Created</th>
 
+                                            <th th:if="${control == 'BLOGGER'} and ${blogType == 'other'}"></th>
                                             <th th:if="${control == 'ADMIN'}"></th>
                                             <th th:if="${blogType == 'mine'}"></th>
                                             <th th:if="${blogType == 'mine'} or ${blogType == 'all'}"></th>
@@ -78,11 +80,19 @@
                                             <td th:text="${blog.description}"></td>
                                             <td th:if="${blogType == 'other'} or ${blogType == 'all'}"
                                                 th:text="${blog.user.username}"></td>
+
+                                            <td th:text="${commentBlogs.get(blog).size()}"></td>
+
                                             <td th:if="${blog.blogStatus == 0}" th:text="#{pending.txt}"
                                                 style="color: gray; font-weight: bold"></td>
                                             <td th:if="${blog.blogStatus == 1}" th:text="#{accepted.txt}"
                                                 style="color: green; font-weight: bold"></td>
                                             <td th:text="${blog.createDate}"></td>
+
+                                            <td th:if="${blog.blogStatus== 1} and ${control == 'BLOGGER'} and ${blogType == 'other'}">
+                                                <a th:href="@{/blog/comment/new(id=${blog.id})}"
+                                                   class="delete-confirmation"><span
+                                                        class="glyphicon glyphicon-comment"></span> </a></td>
 
                                             <td th:if="${blog.blogStatus== 0} and ${control == 'ADMIN'}">
                                                 <a th:href="@{/blogger/blogs/approved(id=${blog.id})}"
@@ -168,7 +178,7 @@
                               role="form">
                             <fieldset>
                                 <!-- Form Name -->
-                                <legend>New Task</legend>
+                                <legend>New Blog</legend>
                                 <!-- Text input-->
                                 <div class="form-group">
                                     <label class="col-md-4 control-label" for="textinput">Blog Title</label>
@@ -218,6 +228,75 @@
                             <div class="box">
 
                                 <div class="box-body">
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Description</th>
+                                            <th>User Name</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:object="${blog}">
+                                            <td th:text="${blog.title}"></td>
+                                            <td th:text="${blog.description}"></td>
+                                            <td th:text="${blog.user.username}"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <div class="box">
+                                <div class="box-body">
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>User</th>
+                                            <th>Comment</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="comment : ${comments}">
+                                            <td th:text="${comment.user.username}"></td>
+                                            <td th:text="${comment.comment}"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- /.box -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- Button (Double) -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="submitButton"></label>
+                        <div class="col-md-8">
+                            <button type="button" class="btn btn-inverse"
+                                    onclick="window.history.back()">Back
+                            </button>
+                        </div>
+
+                    </div>
+                    <!-- /.row -->
+                </section>
+            </div>
+
+            <div th:if="${mode == 'MODE_COMMENT'}">
+                <section class="content-header" style="color: black; font-weight: bold">
+                    <h2>
+                        Blog Comment
+                    </h2>
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="box">
+
+                                <div class="box-body">
                                     <table id="table2" class="table table-bordered table-striped">
                                         <thead>
                                         <tr>
@@ -240,17 +319,40 @@
                             <!-- /.box -->
                         </div>
                         <!-- /.col -->
-                    </div>
-                    <!-- Button (Double) -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="submitButton"></label>
-                        <div class="col-md-8">
-                            <button type="button" class="btn btn-inverse"
-                                    onclick="window.history.back()">Back
-                            </button>
-                        </div>
 
                     </div>
+
+                    <form autocomplete="off" action="#" th:action="@{/blog/comment/save}"
+                          th:object="${commentBlog}" method="post" class="form-horizontal"
+                          role="form">
+                        <fieldset>
+                            <!-- Form Name -->
+                            <legend>New Comment</legend>
+                            <input type="hidden" name="blog" th:field="${blog.id}"/>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="textinput">Blog Comment</label>
+                                <div class="col-md-4">
+                                        <textarea type="text" th:field="${commentBlog.comment}" required
+                                                  placeholder="Comment" class="form-control" maxlength="499"/>
+                                </div>
+                            </div>
+
+                            <!-- Button (Double) -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="submitButton"></label>
+                                <div class="col-md-8">
+                                    <button type="submit" id="submtButton" name="submitButton"
+                                            class="btn btn-success">Save
+                                    </button>
+                                    <button type="button" class="btn btn-inverse"
+                                            onclick="window.history.back()">Cancel
+                                    </button>
+                                </div>
+
+                            </div>
+
+                        </fieldset>
+                    </form>
                     <!-- /.row -->
                 </section>
             </div>
